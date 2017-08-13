@@ -6,6 +6,7 @@ const Game = require('../lib/game.js');
 game takes input from player(or AI)
 
 
+
 */
 
 
@@ -14,5 +15,5 @@ describe('Board', function() {
 
 
   */
-  
-})
+
+});
