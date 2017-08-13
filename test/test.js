@@ -80,6 +80,21 @@ describe('Board', function() {
     });
   });
 
+  describe(`makeMove()`, () => {
+
+    it(`places the sigil at a valid position`, () => {
+      testBoard.makeMove([0,0], "X")
+      assert(testBoard.grid[0][0] === "X");
+    });
+
+    it('does not allow a sigil to overwrite another', ()=> {
+      testBoard.makeMove([0,0], "X");
+      testBoard.makeMove([0,0], "0");
+      assert(testBoard.grid[0][0] === "X");
+    });
+
+  });
+
 
 
 });
