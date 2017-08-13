@@ -60,7 +60,7 @@ describe('Board', function() {
     });
   });
 
-  describe('isValidMove()', () => {
+  describe(`isValidMove()`, () => {
 
     positions.forEach(function(pos) {
       sigils.forEach(function(sigil) {
@@ -69,11 +69,17 @@ describe('Board', function() {
         });
       });
     });
+
+    it(`returns false if pos is full`, () => {
+      testBoard.grid[0][0] = `O`;
+      assert(testBoard.isValidMove([0,0], "X") === false);
+    });
+
+    it(`returns false if pos is off the board`, () => {
+      assert(testBoard.isValidMove([0,4], "X") === false);
+    });
   });
 
-  it(`returns false if pos is full`, () => {
-    testBoard[0][0] = "O";
-    assert(testBoard.isValidMove(1, sigil) === true)
-  })
+
 
 });
