@@ -2,24 +2,7 @@ const assert = require('assert');
 const Board = require('../lib/board.js');
 const Game = require('../lib/game.js');
 
-/*
-game takes input from player(or AI)
-
-
-
-*/
-
-
 describe('Board', function() {
-  /*
-  board should be viewable in the terminal
-  should say if a move is valid(pos)
-  should make a move
-  should check for win
-
-
-
-  */
 
   let testBoard = new Board;
   let sigils = testBoard.sigils;
