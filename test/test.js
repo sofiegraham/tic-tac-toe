@@ -21,9 +21,11 @@ describe('Board', function() {
 
   */
 
-  let testBoard;
-  let positions = generatePositions(new Board());
-  let sigils = ["X", "O"];
+  let testBoard = new Board;
+  let sigils = testBoard.sigils;
+  let testSigil1 = sigils[0];
+  let testSigil2 = sigils[1];
+  let positions = generatePositions(testBoard);
 
   function generatePositions(board) {
     const positionIdxs = [];
@@ -62,8 +64,8 @@ describe('Board', function() {
 
   describe(`isValidMove()`, () => {
 
-    positions.forEach(function(pos) {
-      sigils.forEach(function(sigil) {
+    positions.forEach((pos) => {
+      sigils.forEach((sigil) => {
         it(`returns true if the ${sigil} can be placed in ${pos}`, () => {
           assert(testBoard.isValidMove(pos, sigil) === true);
         });
@@ -88,11 +90,64 @@ describe('Board', function() {
     });
 
     it('does not allow a sigil to overwrite another', ()=> {
-      testBoard.makeMove([0,0], "X");
-      testBoard.makeMove([0,0], "0");
-      assert(testBoard.grid[0][0] === "X");
+      testBoard.makeMove([0,0], testSigil1);
+      testBoard.makeMove([0,0], testSigil2);
+      assert(testBoard.grid[0][0] === testSigil1);
     });
 
+  });
+
+  describe(`isOver()`, () => {
+
+    it(`is true when the board is full`, () => {
+      positions.forEach(function(pos) {
+        testBoard.grid[pos[0]][pos[1]] = testSigil1;
+      });
+      assert(testBoard.isOver() === true);
+    });
+
+    it(`is true when there are spaces remaining and there is a winner`, () => {
+      testBoard.grid[0][0] = testSigil1;
+      testBoard.grid[0][1] = testSigil1;
+      testBoard.grid[0][2] = testSigil1;
+      assert(testBoard.isOver() === true);
+    });
+
+    it(`is false at the start of the game`, () => {
+      assert(testBoard.isOver() === false);
+    })
+
+    it(`is false when there are spaces remaining with no winner`, () => {
+      testBoard.grid[0][0] = testSigil1;
+      testBoard.grid[0][1] = testSigil2;
+      testBoard.grid[0][2] = testSigil1;
+      assert(testBoard.isOver() === false);
+    });
+  });
+
+  describe(`detectWinner()`, () => {
+
+    sigils.forEach((sigil) => {
+      testBoard.winningSets.forEach((coordinatesArray) => {
+        it(`returns the ${sigil} when ${sigil}s fill ${coordinatesArray.toString()}`, () => {
+          coordinatesArray.forEach((coordinates) => {
+            testBoard.grid[coordinates[0]][coordinates[1]] = sigil;
+          });
+          assert(testBoard.detectWinner() === sigil);
+        });
+      });
+    });
+
+    it(`should return the winning sigil if there is a win`, () => {
+      testBoard.grid[0][0] = testSigil1;
+      testBoard.grid[0][1] = testSigil1;
+      testBoard.grid[0][2] = testSigil1;
+      assert(testBoard.detectWinner() === testSigil1);
+    });
+
+    it(`should return false when there is no winner`, () => {
+      assert(testBoard.detectWinner() === false);
+    });
   });
 
 
