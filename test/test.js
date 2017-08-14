@@ -101,7 +101,7 @@ describe('Board', function() {
 
     it(`is true when the board is full`, () => {
       positions.forEach(function(pos) {
-        testBoard.grid[pos[0]][pos[1]] = testSigil1;
+        testBoard.grid[pos[0]][pos[1]] = testSigil2;
       });
       assert(testBoard.isOver() === true);
     });
@@ -127,7 +127,7 @@ describe('Board', function() {
 
   describe(`hasSpace()`, () => {
 
-    it(`returns true when there is space on the board`, () => {
+    it(`returns true when the board is empty`, () => {
       assert(testBoard.hasSpace() === true);
     });
 
@@ -165,7 +165,5 @@ describe('Board', function() {
       assert(testBoard.detectWinner() === false);
     });
   });
-
-
 
 });
