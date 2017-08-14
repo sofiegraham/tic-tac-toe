@@ -73,20 +73,20 @@ describe('Board', function() {
     });
 
     it(`returns false if pos is full`, () => {
-      testBoard.grid[0][0] = `O`;
-      assert(testBoard.isValidMove([0,0], "X") === false);
+      testBoard.grid[0][0] = testSigil1;
+      assert(testBoard.isValidMove([0,0], testSigil2) === false);
     });
 
     it(`returns false if pos is off the board`, () => {
-      assert(testBoard.isValidMove([0,4], "X") === false);
+      assert(testBoard.isValidMove([0,4], testSigil1) === false);
     });
   });
 
   describe(`makeMove()`, () => {
 
     it(`places the sigil at a valid position`, () => {
-      testBoard.makeMove([0,0], "X")
-      assert(testBoard.grid[0][0] === "X");
+      testBoard.makeMove([0,0], testSigil1)
+      assert(testBoard.grid[0][0] === testSigil1);
     });
 
     it('does not allow a sigil to overwrite another', ()=> {
@@ -125,6 +125,29 @@ describe('Board', function() {
     });
   });
 
+  describe(`hasSpace()`, () => {
+
+    it(`returns true when there is space on the board`, () => {
+      assert(testBoard.hasSpace() === true);
+    });
+
+    it(`returns true when there is at least one space on the board`, () => {
+      positions.forEach((pos, idx) => {
+        if(idx !== 0) {
+          testBoard.grid[pos[0]][pos[1]] = testSigil1;
+        }
+      });
+      assert(testBoard.hasSpace() === true);
+    });
+
+    it(`returns false when there is no space on the board`, () => {
+      positions.forEach((pos) => {
+        testBoard.grid[pos[0]][pos[1]] = testSigil1;
+      });
+      assert(testBoard.hasSpace() === false);
+    });
+  })
+
   describe(`detectWinner()`, () => {
 
     sigils.forEach((sigil) => {
@@ -136,13 +159,6 @@ describe('Board', function() {
           assert(testBoard.detectWinner() === sigil);
         });
       });
-    });
-
-    it(`should return the winning sigil if there is a win`, () => {
-      testBoard.grid[0][0] = testSigil1;
-      testBoard.grid[0][1] = testSigil1;
-      testBoard.grid[0][2] = testSigil1;
-      assert(testBoard.detectWinner() === testSigil1);
     });
 
     it(`should return false when there is no winner`, () => {
