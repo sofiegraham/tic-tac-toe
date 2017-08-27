@@ -13,13 +13,9 @@ class View {
 }
 
 View.prototype.setupBoard = function () {
-  /*
-  Add ul
-
-  */
-  this.$el.append('<ul id="board" ></ul>');
+  this.$el.append('<div id="board" ></div>');
   for(var i = 1; i < 10; i++) {
-    this.$el.children().append('<li class="square" id="' + i + '"></li');
+    this.$el.children().append('<div class="square" id="' + i + '"></div>');
   };
 
 };
