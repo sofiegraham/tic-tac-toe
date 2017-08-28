@@ -46,15 +46,42 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* BOX SIZING */
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
 /* CUSTOM STYLES */
+
+body {
+  background-color: #39383a;
+  font: 300 50px/60px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
 
 .square {
   width: 100px;
   height: 100px;
+  line-height: 100px;
   float: left;
-  background-color: red;
-  list-style-type: none;
+  box-shadow:
+    1px 0 0 0 #888,
+    0 1px 0 0 #888,
+    1px 1px 0 0 #888,
+    1px 0 0 0 #888 inset,
+    0 1px 0 0 #888 inset;
+}
+
+.empty:hover {
+  background-color: #525054;
+
 }
 
 #board {
@@ -63,10 +90,16 @@ table {
 }
 
 #game {
+  border-collapse: collapse;
   width: 100%;
+  padding: 50px 0;
+  text-align: center;
 }
 
 h1 {
-  font-family: sans-serif;
-  text-align: center;
+  font-size: 30px;
+}
+
+#hint {
+  font-size: 18px
 }

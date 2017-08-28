@@ -5,5 +5,5 @@ $( () => {
   const $el = $('figure');
   const game = new Game();
   const view = new View(game, $el);
-  // game.play();
+  game.run();
 });
